@@ -1,23 +1,32 @@
+import { Component } from "react";
 import Header from "./components/Header";
+import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
-import Todo from "./components/Todo";
 import "./css/App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Sidebar />
-      <main className="main">
-        <h2 className="main__head">Todo list</h2>
-        <div scroll="yes" className="todo">
-          <ul className="todo__items" id="todo__items">
-            <Todo />
-          </ul>
-        </div>
-      </main>
-    </div>
-  );
+class App extends Component {
+  tasks = [
+    {
+      title: "task",
+      description: "Description",
+      due_date: "2022-02-22",
+    },
+    {
+      title: "task 2",
+      description: "Description",
+      due_date: "2022-02-22",
+    },
+  ];
+
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <Sidebar />
+        <Main todo={this.tasks} />
+      </div>
+    );
+  }
 }
 
 export default App;
