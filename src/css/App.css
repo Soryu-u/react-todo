@@ -1,0 +1,16 @@
+.main {
+  position: relative;
+
+  margin-left: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 10vh;
+}
+
+.main__head {
+  color: white;
+}

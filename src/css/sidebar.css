@@ -1,0 +1,127 @@
+.sidebar {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+
+  background-color: #8272aa;
+  box-shadow: 0px 2px 8px rgb(54, 54, 54);
+
+  height: 100vh;
+  width: 300px;
+
+  padding: 35px;
+  padding-top: 15vh;
+  margin-bottom: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  z-index: 1;
+}
+
+.newTask {
+  display: flex;
+  align-items: flex-end;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.newTask__form {
+  margin: 5px;
+  padding: 8px;
+
+  width: 100%;
+
+  background: rgb(225, 221, 255);
+  box-shadow: 0px 2px 8px rgb(54, 54, 54);
+  border: 2px solid #10071c;
+  border-radius: 5px;
+
+  font-size: 16px;
+  color: #10071c;
+}
+
+.newTask__date {
+  padding: 5px;
+  margin: 10px;
+
+  width: 100%;
+
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgb(54, 54, 54);
+  border: 2px solid #10071c;
+  background-color: rgb(225, 221, 255);
+
+  cursor: pointer;
+}
+
+.newTask__btn {
+  background-color: #db99c3;
+  box-shadow: 0px 2px 8px rgb(54, 54, 54);
+  border-radius: 5px;
+  border: none;
+
+  padding: 10px;
+  margin: 10px;
+
+  font-weight: bold;
+  color: white;
+  font-family: "Varela Round", sans-serif;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+.newTask__btn:hover {
+  background-color: #cf88b5;
+}
+
+.routing {
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.routing p {
+  font-family: "Varela Round", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+}
+
+.route__btn {
+  padding: 3px;
+
+  font-size: 16px;
+  color: white;
+
+  cursor: pointer;
+
+  background: none;
+  border: none;
+
+  transition: transform 0.3s;
+}
+
+.active {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.route__btn:hover {
+  transform: scale(1.1);
+
+  text-decoration: underline;
+}
+
+.invalid__input {
+  border: 2px solid #e20505;
+}
