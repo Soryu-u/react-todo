@@ -1,5 +1,7 @@
 import "../css/todo.css";
 
+import trash from "../img/icons8-trash.svg";
+
 export default function Todo(task) {
   return (
     <li className="todo__item">
@@ -7,7 +9,7 @@ export default function Todo(task) {
         <input type="checkbox" className="todo__checkbox" />
         <p className="task__body">{task.todo.title}</p>
         <button className="delete__btn">
-          <img src="../img/icons8-trash.svg" alt="" />
+          <img src={trash} alt="" />
         </button>
       </div>
       <div className="task__content ">

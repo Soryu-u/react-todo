@@ -8,6 +8,11 @@ class Sidebar extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
+    this.setState({
+      title: "",
+      description: "",
+      due_date: "",
+    });
   };
 
   onChange = (event) => {
