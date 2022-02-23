@@ -1,38 +1,29 @@
-import { Component } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import "./css/App.css";
 
-class App extends Component {
-  state = {
-    tasks: [
-      {
-        title: "task",
-        description: "Description",
-        due_date: "2022-02-22",
-      },
-      {
-        title: "task 2",
-        description: "Description",
-        due_date: "2022-02-22",
-      },
-    ],
-  };
+import axios from "axios";
+import React from "react";
 
-  addTodo = (value) => {
-    this.setState({ tasks: [...this.state.tasks, value] });
-  };
+const baseURL = "http://10.177.1.5:8000/tasks";
 
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Sidebar onSubmit={this.addTodo} />
-        <Main todo={this.state.tasks} />
-      </div>
-    );
-  }
+function App() {
+  const [task, getTask] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get(baseURL).then((res) => {
+      getTask(res.data);
+    });
+  }, []);
+
+  return (
+    <div className="App">
+      <Header />
+      <Sidebar />
+      <Main todo={task} />
+    </div>
+  );
 }
 
 export default App;
