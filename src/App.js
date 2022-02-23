@@ -4,14 +4,14 @@ import Sidebar from "./components/Sidebar";
 import "./css/App.css";
 
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const baseURL = "http://10.177.1.5:8000/tasks";
 
 function App() {
-  const [task, getTask] = React.useState([]);
+  const [task, getTask] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get(baseURL).then((res) => {
       getTask(res.data);
     });

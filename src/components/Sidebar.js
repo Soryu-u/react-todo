@@ -1,18 +1,10 @@
 import "../css/sidebar.css";
 
 import React from "react";
-// import InputForm from "./InputForm";
+import InputForm from "./InputForm";
 
 function Sidebar() {
   const [task, getTask] = React.useState([]);
-
-  function onSubmitHandler() {
-    getTask({
-      title: "",
-      description: "",
-      due_date: "",
-    });
-  }
 
   function onChange(event) {
     let value = event.target.value;
@@ -29,25 +21,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="newTask">
-        <form className="input" name="task">
-          <input
-            className="newTask__form "
-            type="text"
-            name="title"
-            placeholder="Enter task name"
-          />
-          <input
-            className="newTask__form"
-            type="text"
-            name="description"
-            placeholder="Enter task description"
-          />
-          <input className="newTask__date" type="date" name="due_date" />
-
-          <button type="submit" className="newTask__btn">
-            add
-          </button>
-        </form>
+        <InputForm />
       </div>
       <div className="routing">
         <p>Show:</p>

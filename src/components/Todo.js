@@ -35,11 +35,40 @@ export default function Todo(task) {
       }
     }
   }
+
+  const [post, setPost] = React.useState(null);
+
+  React.useEffect(() => {
+    axios.get(`${baseURL}/1`).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
+  function createPost() {
+    axios
+      .post(baseURL, {
+        title: "Hello World!",
+        body: "This is a new post.",
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+  }
+
+  function changeStatus() {}
+
   return (
-    <li className="todo__item">
+    <li className={task.todo.done ? "todo__item done" : "todo__item"}>
       <div className="task__header">
-        <input type="checkbox" className="todo__checkbox" />
-        <p className="task__body">{task.todo.title}</p>
+        <input
+          type="checkbox"
+          className="todo__checkbox"
+          checked={task.todo.done}
+          onClick={changeStatus()}
+        />
+        <p className={task.todo.done ? "task__body checked" : "task__body"}>
+          {task.todo.title}
+        </p>
         <button className="delete__btn">
           <img src={trash} alt="" />
         </button>
