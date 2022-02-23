@@ -5,25 +5,31 @@ import Sidebar from "./components/Sidebar";
 import "./css/App.css";
 
 class App extends Component {
-  tasks = [
-    {
-      title: "task",
-      description: "Description",
-      due_date: "2022-02-22",
-    },
-    {
-      title: "task 2",
-      description: "Description",
-      due_date: "2022-02-22",
-    },
-  ];
+  state = {
+    tasks: [
+      {
+        title: "task",
+        description: "Description",
+        due_date: "2022-02-22",
+      },
+      {
+        title: "task 2",
+        description: "Description",
+        due_date: "2022-02-22",
+      },
+    ],
+  };
+
+  addTodo = (value) => {
+    this.setState({ tasks: [...this.state.tasks, value] });
+  };
 
   render() {
     return (
       <div className="App">
         <Header />
-        <Sidebar />
-        <Main todo={this.tasks} />
+        <Sidebar onSubmit={this.addTodo} />
+        <Main todo={this.state.tasks} />
       </div>
     );
   }
