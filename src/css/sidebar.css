@@ -125,3 +125,9 @@
 .invalid__input {
   border: 2px solid #e20505;
 }
+
+@media screen and (max-width: 376px) {
+  .sidebar {
+    display: none;
+  }
+}

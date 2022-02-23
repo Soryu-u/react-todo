@@ -14,3 +14,9 @@
 .main__head {
   color: white;
 }
+
+@media screen and (max-width: 376px) {
+  .main {
+    margin-left: 0px;
+  }
+}
