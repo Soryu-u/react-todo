@@ -1,11 +1,40 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+
+const baseURL = "http://10.177.1.5:8000/tasks";
+
 function InputForm() {
   function onSubmitHandler() {
     console.log("onSubmitHandler");
   }
 
+
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${baseURL}/1`).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
+  function createPost() {
+    axios
+      .post(baseURL, {
+        title: "Hello World!",
+        body: "This is a new post.",
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+  }
+
+  
+
+
   return (
     <div className="newTask">
-      <form onSubmit={onSubmitHandler()} className="input" name="task">
+      <form onSubmit={onSubmitHandler} className="input" name="task">
         <input
           className="newTask__form "
           type="text"
