@@ -1,35 +1,32 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 
 
-const baseURL = "http://10.177.1.5:8000/tasks";
+let useFormInput = (data) => {
 
-function InputForm() {
-  function onSubmitHandler() {
-    console.log("onSubmitHandler");
+  let [value, setValue] = useState(data)
+    return {
+      value: value,
+      onChange: e => setValue(e.target.value)
+    }
   }
 
+function InputForm(props) {
 
-  const [post, setPost] = useState(null);
+  const title = useFormInput("")
+  const description = useFormInput("")
+  const due_date = useFormInput("")
 
-  useEffect(() => {
-    axios.get(`${baseURL}/1`).then((response) => {
-      setPost(response.data);
-    });
-  }, []);
 
-  function createPost() {
-    axios
-      .post(baseURL, {
-        title: "Hello World!",
-        body: "This is a new post.",
-      })
-      .then((response) => {
-        setPost(response.data);
-      });
+  const onSubmitHandler = evt => {
+    evt.preventDefault()
+    let newTask = {
+      title: title.value,
+      description: description.value,
+      due_date: due_date.value ? due_date.value : null
+    }  
+    props.createTask(newTask)
   }
-
-  
 
 
   return (
@@ -39,15 +36,22 @@ function InputForm() {
           className="newTask__form "
           type="text"
           name="title"
+          {...title}
           placeholder="Enter task name"
-        ></input>
+        />
         <input
           className="newTask__form"
           type="text"
-          name="description"
+          name="desc"
+          {...description}
           placeholder="Enter task description"
-        ></input>
-        <input className="newTask__date" type="date" name="due_date"></input>
+        />
+        <input 
+          className="newTask__date" 
+          type="date" 
+          name="due_date"
+          {...due_date}
+          />
 
         <button type="submit" className="newTask__btn">
           add

@@ -3,25 +3,16 @@ import "../css/sidebar.css";
 import React from "react";
 import InputForm from "./InputForm";
 
-function Sidebar() {
-  const [task, getTask] = React.useState([]);
+function Sidebar(props) {
 
-  function onChange(event) {
-    let value = event.target.value;
-
-    getTask({
-      id: 3,
-      [event.target.name]: value,
-      [event.target.name]: value,
-      [event.target.name]: value,
-      done: false,
-    });
+  let createTask = (data) => {
+    props.createTask(data)
   }
 
   return (
     <div className="sidebar">
       <div className="newTask">
-        <InputForm />
+        <InputForm createTask={createTask}/>
       </div>
       <div className="routing">
         <p>Show:</p>

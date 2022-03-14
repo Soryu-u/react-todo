@@ -1,10 +1,7 @@
 import "../css/todo.css";
 
-import axios from "axios";
-
 import trash from "../img/icons8-trash.svg";
 
-const baseURL = "http://10.177.1.5:8000/";
 
 export default function Todo(props) {
 
@@ -47,15 +44,14 @@ export default function Todo(props) {
       ...props.todo,
       done: event.target.checked
     }
-    props.sendData(changedTask)
-
-    
+    props.sendData(changedTask)   
   }
 
-  function deleteTask(data){
-    let url= `${baseURL}lists/${data.list_id}/tasks/${data.id}`
-    console.log('delete ' + url);
+  let deleteHandler = () => {
+    props.deleteTask(props.todo)
   }
+
+ 
 
   return (
     <li className={`todo__item ${props.todo.done ? "done" : ""}`}>
@@ -70,7 +66,7 @@ export default function Todo(props) {
           {props.todo.title}
         </p>
         <button className="delete__btn">
-          <img src={trash} alt="delete" onClick={() => deleteTask(props.todo)}/>
+          <img src={trash} alt="delete" onClick={deleteHandler}/>
         </button>
       </div>
       <div className="task__content ">
