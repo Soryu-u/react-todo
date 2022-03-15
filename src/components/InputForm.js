@@ -2,10 +2,15 @@ import React, { useState } from "react";
 
 let useFormInput = (data) => {
   let [value, setValue] = useState(data);
-  return {
+  let inputProps = {
     value: value,
     onChange: (e) => setValue(e.target.value),
   };
+  Object.defineProperty(inputProps, "setValue", {
+    value: setValue,
+    enumerable: false,
+  });
+  return inputProps;
 };
 
 function InputForm(props) {
@@ -25,6 +30,9 @@ function InputForm(props) {
     if (newTask.title) {
       setInputStatus(false);
       props.createTask(newTask);
+      for (let f of [title, description, due_date]) {
+        f.setValue("");
+      }
     } else {
       setInputStatus(true);
     }

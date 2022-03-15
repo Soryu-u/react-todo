@@ -2,6 +2,7 @@ import "../css/sidebar.css";
 
 import React, { useState } from "react";
 import InputForm from "./InputForm";
+import { Dashboard } from "./Dashboard";
 
 function Sidebar(props) {
   let createTask = (data) => {
@@ -20,7 +21,7 @@ function Sidebar(props) {
       <div className="newTask">
         <InputForm createTask={createTask} />
       </div>
-      <div className="routing">
+      <div className="switcher">
         <p>Show:</p>
         <button
           id="open"
@@ -37,6 +38,7 @@ function Sidebar(props) {
           all tasks
         </button>
       </div>
+      <Dashboard lists={props.lists} />
     </div>
   );
 }
