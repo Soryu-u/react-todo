@@ -1,33 +1,27 @@
-
 import React, { useState } from "react";
 
-
 let useFormInput = (data) => {
-
-  let [value, setValue] = useState(data)
-    return {
-      value: value,
-      onChange: e => setValue(e.target.value)
-    }
-  }
+  let [value, setValue] = useState(data);
+  return {
+    value: value,
+    onChange: (e) => setValue(e.target.value),
+  };
+};
 
 function InputForm(props) {
+  const title = useFormInput("");
+  const description = useFormInput("");
+  const due_date = useFormInput("");
 
-  const title = useFormInput("")
-  const description = useFormInput("")
-  const due_date = useFormInput("")
-
-
-  const onSubmitHandler = evt => {
-    evt.preventDefault()
+  const onSubmitHandler = (evt) => {
+    evt.preventDefault();
     let newTask = {
       title: title.value,
       description: description.value,
-      due_date: due_date.value ? due_date.value : null
-    }  
-    props.createTask(newTask)
-  }
-
+      due_date: due_date.value ? due_date.value : null,
+    };
+    props.createTask(newTask);
+  };
 
   return (
     <div className="newTask">
@@ -46,12 +40,12 @@ function InputForm(props) {
           {...description}
           placeholder="Enter task description"
         />
-        <input 
-          className="newTask__date" 
-          type="date" 
+        <input
+          className="newTask__date"
+          type="date"
           name="due_date"
           {...due_date}
-          />
+        />
 
         <button type="submit" className="newTask__btn">
           add

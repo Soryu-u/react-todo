@@ -2,11 +2,7 @@ import "../css/todo.css";
 
 import trash from "../img/icons8-trash.svg";
 
-
 export default function Todo(props) {
-
-
-
   function getDate(data) {
     if (data) {
       let taskDate = new Date(data);
@@ -34,24 +30,21 @@ export default function Todo(props) {
 
       if (taskDate < currentDate) {
         return true;
-      } 
+      }
     }
   }
 
-
-  let changeHandler = event => {
+  let changeHandler = (event) => {
     let changedTask = {
       ...props.todo,
-      done: event.target.checked
-    }
-    props.sendData(changedTask)   
-  }
+      done: event.target.checked,
+    };
+    props.sendData(changedTask);
+  };
 
   let deleteHandler = () => {
-    props.deleteTask(props.todo)
-  }
-
- 
+    props.deleteTask(props.todo);
+  };
 
   return (
     <li className={`todo__item ${props.todo.done ? "done" : ""}`}>
@@ -66,12 +59,18 @@ export default function Todo(props) {
           {props.todo.title}
         </p>
         <button className="delete__btn">
-          <img src={trash} alt="delete" onClick={deleteHandler}/>
+          <img src={trash} alt="delete" onClick={deleteHandler} />
         </button>
       </div>
       <div className="task__content ">
         <p className="task__description">{props.todo.description}</p>
-        <p className={`task__date ${isOverdue(props.todo.due_date) && !props.todo.done ? 'overdue__task' : ''} `}>
+        <p
+          className={`task__date ${
+            isOverdue(props.todo.due_date) && !props.todo.done
+              ? "overdue__task"
+              : ""
+          } `}
+        >
           {getDate(props.todo.due_date)}
         </p>
       </div>
