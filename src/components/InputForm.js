@@ -13,6 +13,8 @@ function InputForm(props) {
   const description = useFormInput("");
   const due_date = useFormInput("");
 
+  let [inputStatus, setInputStatus] = useState(false);
+
   const onSubmitHandler = (evt) => {
     evt.preventDefault();
     let newTask = {
@@ -20,14 +22,19 @@ function InputForm(props) {
       description: description.value,
       due_date: due_date.value ? due_date.value : null,
     };
-    props.createTask(newTask);
+    if (newTask.title) {
+      setInputStatus(false);
+      props.createTask(newTask);
+    } else {
+      setInputStatus(true);
+    }
   };
 
   return (
     <div className="newTask">
       <form onSubmit={onSubmitHandler} className="input" name="task">
         <input
-          className="newTask__form "
+          className={`newTask__form ${inputStatus ? "invalid__input" : ""}`}
           type="text"
           name="title"
           {...title}

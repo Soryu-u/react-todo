@@ -17,7 +17,7 @@ function App() {
     });
   }, []);
 
-  const createTask = async (createTask) => {
+  const createTask = (createTask) => {
     let url = `/lists/5/tasks`;
 
     let newTask = {
@@ -26,7 +26,7 @@ function App() {
       done: false,
     };
 
-    await httpClient.post(url, newTask).then((res) => {
+    httpClient.post(url, newTask).then((res) => {
       getTask([...task, res.data[0]]);
     });
   };
