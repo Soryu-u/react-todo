@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TodoToday from "../TodoToday.js";
 
-import httpClient from "../axios";
+import { getCollection, getData, deletedTask } from "../axiosRequests";
 
 export default function TodayTaskPage(props) {
   let view = props.view;
@@ -9,18 +9,20 @@ export default function TodayTaskPage(props) {
   const [tasks, setTasks] = useState([]);
 
   const sendData = (data) => {
-    props.sendData(data);
-    setTasks(tasks.map((t) => (t.id === data.id ? data : t)));
+    getData(data).then(() => {
+      setTasks(tasks.map((t) => (t.id === data.id ? data : t)));
+    });
   };
 
   const deleteTask = (data) => {
-    props.deleteTask(data);
-    setTasks(tasks.filter((t) => t.id !== parseInt(data.id)));
+    deletedTask(data).then(() => {
+      setTasks(tasks.filter((t) => t.id !== parseInt(data.id)));
+    });
   };
 
   useEffect(() => {
-    httpClient.get(`/collection/today`).then((res) => {
-      setTasks(res.data);
+    getCollection().then((res) => {
+      setTasks(res);
     });
   }, []);
 

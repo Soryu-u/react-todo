@@ -8,13 +8,6 @@ export default function TodoListPage(props) {
 
   let view = props.view;
 
-  let sendData = (index) => {
-    props.sendData(index);
-  };
-  let deleteTask = (index) => {
-    props.deleteTask(index);
-  };
-
   return (
     <ul
       className={`todo__items ${view === "open" ? "hide-done" : ""}`}
@@ -23,7 +16,12 @@ export default function TodoListPage(props) {
       {props.task
         .filter((task) => task.list_id === list_id)
         .map((t, i) => (
-          <Todo key={i} todo={t} sendData={sendData} deleteTask={deleteTask} />
+          <Todo
+            key={i}
+            todo={t}
+            sendData={props.sendData}
+            deleteTask={props.deleteTask}
+          />
         ))}
     </ul>
   );

@@ -5,10 +5,6 @@ import InputForm from "./InputForm";
 import { Dashboard } from "./Dashboard";
 
 function Sidebar(props) {
-  let createTask = (data) => {
-    props.createTask(data);
-  };
-
   let [view, setView] = useState("all");
 
   let viewClickHandler = (v) => {
@@ -19,7 +15,7 @@ function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="newTask">
-        <InputForm createTask={createTask} />
+        <InputForm createTask={props.createTask} />
       </div>
       <div className="switcher">
         <p>Show:</p>

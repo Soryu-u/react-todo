@@ -6,7 +6,12 @@ function Header() {
   return (
     <header className="header">
       <div className="left__nav">
-        square<span id="text">shnik</span> todo list
+        <p className="pc">
+          square<span id="text">shnik</span> todo list
+        </p>
+        <p className="mobile">
+          square<span id="text">shnik</span> todo list
+        </p>
       </div>
       <div className="right__nav">
         <Clock />
