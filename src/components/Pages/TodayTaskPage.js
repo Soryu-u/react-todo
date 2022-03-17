@@ -1,33 +1,42 @@
-import React from "react";
-import Todo from "../Todo.js";
+import React, { useEffect, useState } from "react";
+import TodoToday from "../TodoToday.js";
+
+import httpClient from "../axios";
 
 export default function TodayTaskPage(props) {
   let view = props.view;
 
-  let isToday = (props) => {
-    let currentDate = new Date().toDateString();
-    let date = new Date(props.due_date).toDateString();
+  const [tasks, setTasks] = useState([]);
 
-    return date === currentDate ? true : false;
+  const sendData = (data) => {
+    props.sendData(data);
+    setTasks(tasks.map((t) => (t.id === data.id ? data : t)));
   };
 
-  let sendData = (index) => {
-    props.sendData(index);
+  const deleteTask = (data) => {
+    props.deleteTask(data);
+    setTasks(tasks.filter((t) => t.id !== parseInt(data.id)));
   };
-  let deleteTask = (index) => {
-    props.deleteTask(index);
-  };
+
+  useEffect(() => {
+    httpClient.get(`/collection/today`).then((res) => {
+      setTasks(res.data);
+    });
+  }, []);
 
   return (
     <ul
       className={`todo__items ${view === "open" ? "hide-done" : ""}`}
       id="todo__items"
     >
-      {props.todo
-        .filter((task) => isToday(task))
-        .map((t, i) => (
-          <Todo key={i} todo={t} sendData={sendData} deleteTask={deleteTask} />
-        ))}
+      {tasks.map((t, i) => (
+        <TodoToday
+          key={i}
+          todo={t}
+          sendData={sendData}
+          deleteTask={deleteTask}
+        />
+      ))}
     </ul>
   );
 }

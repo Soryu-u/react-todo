@@ -4,11 +4,14 @@ import Sidebar from "./components/Sidebar";
 import "./css/App.css";
 
 import React, { useEffect, useState } from "react";
-import httpClient from "./axios";
+import httpClient from "./components/axios";
+import { Route, Routes } from "react-router-dom";
+import TodayTaskPage from "./components/Pages/TodayTaskPage";
+import TodoListPage from "./components/Pages/TodoListPage";
+import Todos from "./components/Todos";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-
   const [lists, setLists] = useState([]);
 
   let [view, setView] = useState("all");
@@ -25,17 +28,16 @@ function App() {
     });
   }, []);
 
-  const createTask = (createTask) => {
-    let url = `/lists/5/tasks`;
+  const createTask = (data) => {
+    let url = `/lists/${data.list_id}/tasks`;
 
     let newTask = {
-      ...createTask,
-      list_id: 5,
+      ...data,
       done: false,
     };
 
     httpClient.post(url, newTask).then((res) => {
-      setTasks([...tasks, res.data[0]]);
+      setTasks([...tasks, res.data]);
     });
   };
 
@@ -55,14 +57,56 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Sidebar createTask={createTask} onViewChange={setView} lists={lists} />
-      <Main
-        task={tasks}
-        sendData={sendData}
-        deleteTask={deleteTask}
-        view={view}
-      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Header />
+              <Sidebar
+                createTask={createTask}
+                onViewChange={setView}
+                lists={lists}
+              />
+              <Main />
+            </div>
+          }
+        >
+          <Route
+            path="/lists/:id"
+            element={
+              <TodoListPage
+                task={tasks}
+                sendData={sendData}
+                deleteTask={deleteTask}
+                view={view}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Todos
+                todo={tasks}
+                sendData={sendData}
+                deleteTask={deleteTask}
+                view={view}
+              />
+            }
+          />
+          <Route
+            path="/today"
+            element={
+              <TodayTaskPage
+                task={tasks}
+                sendData={sendData}
+                deleteTask={deleteTask}
+                view={view}
+              />
+            }
+          />
+        </Route>
+      </Routes>
     </div>
   );
 }

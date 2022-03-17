@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../css/todo.css";
 
 import trash from "../img/icons8-trash.svg";
@@ -48,19 +49,24 @@ export default function Todo(props) {
 
   return (
     <li className={`todo__item ${props.todo.done ? "done" : ""}`}>
-      <div className="task__title">
-        <input
-          type="checkbox"
-          className="todo__checkbox"
-          defaultChecked={props.todo.done}
-          onChange={changeHandler}
-        />
-        <p className={`task__body ${props.todo.done ? "checked" : ""}`}>
-          {props.todo.title}
-        </p>
-        <button className="delete__btn">
-          <img src={trash} alt="delete" onClick={deleteHandler} />
-        </button>
+      <div className="task__header">
+        <div className="task__title">
+          <input
+            type="checkbox"
+            className="todo__checkbox"
+            defaultChecked={props.todo.done}
+            onChange={changeHandler}
+          />
+          <p className={`task__body ${props.todo.done ? "checked" : ""}`}>
+            {props.todo.title}
+          </p>
+          <button className="delete__btn">
+            <img src={trash} alt="delete" onClick={deleteHandler} />
+          </button>
+        </div>
+        <Link to={`/lists/${props.todo.list_id}`} className="list__name">
+          {props.todo.name}
+        </Link>
       </div>
       <div className="task__content ">
         <p className="task__description">{props.todo.description}</p>

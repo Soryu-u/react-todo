@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 let useFormInput = (data) => {
   let [value, setValue] = useState(data);
@@ -14,6 +15,8 @@ let useFormInput = (data) => {
 };
 
 function InputForm(props) {
+  let { id } = useParams();
+
   const title = useFormInput("");
   const description = useFormInput("");
   const due_date = useFormInput("");
@@ -23,6 +26,7 @@ function InputForm(props) {
   const onSubmitHandler = (evt) => {
     evt.preventDefault();
     let newTask = {
+      list_id: id ? id : 5,
       title: title.value,
       description: description.value,
       due_date: due_date.value ? due_date.value : null,

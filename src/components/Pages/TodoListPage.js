@@ -20,7 +20,7 @@ export default function TodoListPage(props) {
       className={`todo__items ${view === "open" ? "hide-done" : ""}`}
       id="todo__items"
     >
-      {props.todo
+      {props.task
         .filter((task) => task.list_id === list_id)
         .map((t, i) => (
           <Todo key={i} todo={t} sendData={sendData} deleteTask={deleteTask} />
