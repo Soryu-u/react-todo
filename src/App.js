@@ -3,25 +3,102 @@ import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import "./css/App.css";
 
-import axios from "axios";
-import React from "react";
-
-const baseURL = "http://10.177.1.5:8000/tasks";
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import TodayTaskPage from "./components/Pages/TodayTaskPage";
+import TodoListPage from "./components/Pages/TodoListPage";
+import Todos from "./components/Todos";
+import {
+  getTasks,
+  getData,
+  deletedTask,
+  postTask,
+  getLists,
+} from "./components/axiosRequests";
 
 function App() {
-  const [task, getTask] = React.useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [lists, setLists] = useState([]);
 
-  React.useEffect(() => {
-    axios.get(baseURL).then((res) => {
-      getTask(res.data);
+  let [view, setView] = useState("all");
+
+  useEffect(() => {
+    getTasks().then((res) => {
+      setTasks(res);
     });
   }, []);
 
+  useEffect(() => {
+    getLists().then((res) => {
+      setLists(res);
+    });
+  }, []);
+
+  const createTask = (data) => {
+    let newTask = {
+      ...data,
+      done: false,
+    };
+
+    postTask(newTask).then((res) => {
+      setTasks([...tasks, res]);
+    });
+  };
+
+  const sendData = (data) => {
+    getData(data).then((res) => {
+      setTasks(tasks.map((t) => (t.id === res.id ? res : t)));
+    });
+  };
+
+  const deleteTask = (data) => {
+    deletedTask(data).then(() => {
+      setTasks(tasks.filter((t) => t.id !== parseInt(data.id)));
+    });
+  };
+
   return (
     <div className="App">
-      <Header />
-      <Sidebar />
-      <Main todo={task} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Header />
+              <Sidebar
+                createTask={createTask}
+                onViewChange={setView}
+                lists={lists}
+              />
+              <Main />
+            </div>
+          }
+        >
+          <Route
+            path="/lists/:id"
+            element={
+              <TodoListPage
+                task={tasks}
+                sendData={sendData}
+                deleteTask={deleteTask}
+                view={view}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Todos
+                todo={tasks}
+                sendData={sendData}
+                deleteTask={deleteTask}
+                view={view}
+              />
+            }
+          />
+          <Route path="/today" element={<TodayTaskPage view={view} />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

@@ -1,63 +1,40 @@
 import "../css/sidebar.css";
 
-import React from "react";
-// import InputForm from "./InputForm";
+import React, { useState } from "react";
+import InputForm from "./InputForm";
+import { Dashboard } from "./Dashboard";
 
-function Sidebar() {
-  const [task, getTask] = React.useState([]);
+function Sidebar(props) {
+  let [view, setView] = useState("all");
 
-  function onSubmitHandler() {
-    getTask({
-      title: "",
-      description: "",
-      due_date: "",
-    });
-  }
-
-  function onChange(event) {
-    let value = event.target.value;
-
-    getTask({
-      id: 3,
-      [event.target.name]: value,
-      [event.target.name]: value,
-      [event.target.name]: value,
-      done: false,
-    });
-  }
+  let viewClickHandler = (v) => {
+    setView(v.target.id);
+    props.onViewChange(v.target.id);
+  };
 
   return (
     <div className="sidebar">
       <div className="newTask">
-        <form className="input" name="task">
-          <input
-            className="newTask__form "
-            type="text"
-            name="title"
-            placeholder="Enter task name"
-          />
-          <input
-            className="newTask__form"
-            type="text"
-            name="description"
-            placeholder="Enter task description"
-          />
-          <input className="newTask__date" type="date" name="due_date" />
-
-          <button type="submit" className="newTask__btn">
-            add
-          </button>
-        </form>
+        <InputForm createTask={props.createTask} />
       </div>
-      <div className="routing">
+      <div className="switcher">
         <p>Show:</p>
-        <button id="open" className="route__btn">
+        <button
+          id="open"
+          className={`route__btn ${view === "open" ? "active" : ""}`}
+          onClick={viewClickHandler}
+        >
           open tasks
         </button>
-        <button id="all" className="route__btn active">
+        <button
+          id="all"
+          className={`route__btn ${view === "all" ? "active" : ""}`}
+          onClick={viewClickHandler}
+        >
           all tasks
         </button>
       </div>
+      <Dashboard lists={props.lists} />
     </div>
   );
 }

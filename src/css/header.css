@@ -16,6 +16,13 @@
 
   z-index: 2;
 }
+.pc {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
 
 .left__nav {
   font-family: "Varela Round", sans-serif;
@@ -62,11 +69,19 @@
   color: rgb(231, 0, 0);
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 426px) {
   .left__nav {
+  }
+
+  .pc {
     display: none;
   }
 
+  .mobile {
+    display: block;
+  }
+
   .right__nav {
+    display: none;
   }
 }

@@ -13,7 +13,7 @@
   justify-content: space-around;
 }
 
-.task__header {
+.task__title {
   position: relative;
 
   display: flex;
@@ -22,6 +22,17 @@
   flex-wrap: wrap;
 
   padding: 5px;
+}
+
+.list__name {
+  display: flex;
+  justify-content: center;
+
+  color: black;
+  padding: 10px;
+
+  background-color: rgb(193, 182, 212);
+  border-radius: 5px;
 }
 
 .todo__checkbox {
@@ -91,7 +102,7 @@
   display: none;
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 426px) {
   .todo__item {
     width: 100%;
   }
